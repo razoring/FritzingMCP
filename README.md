@@ -21,28 +21,7 @@ An advanced Model Context Protocol (MCP) server for live, real-time control, vis
 
 ## 🏗️ Architecture & Control Flow
 
-```mermaid
-flowchart TD
-    LLM[LLM Agent / Client] <-->|Stdio Transport MCP 2.x| MCPServer[Fritzing Live MCP Server]
-    
-    subgraph Core Engine
-        MCPServer --> SessionMgr[Session Lock Manager]
-        MCPServer --> PartsCatalog[SQLite Parts Catalog]
-        MCPServer --> ERCEngine[ERC / DRC Engine]
-        MCPServer --> SimEngine[Simulation Engine]
-    end
-    
-    SessionMgr -->|Win32 Named Mutex| LockRegistry["%LOCALAPPDATA%/FritzingMCP/session_locks.json"]
-    PartsCatalog -->|Query| PartsDB["Fritzing/fritzing-parts/parts.db"]
-    SimEngine -->|Compile| ArduinoCLI[arduino-cli]
-    
-    subgraph Fritzing Desktop Application
-        MCPServer -->|HTTP IPv6/IPv4 :17999| FTestingServer["FTestingServer (-ftesting)"]
-        MCPServer -->|PrintWindow GDI| GDICapture[Background Frame Grabber]
-        FTestingServer -->|Live In-Memory Mutation| FritzingApp[Active Fritzing Window]
-        GDICapture -->|Base64 PNG ImageContent| MCPServer
-    end
-```
+![Architecture & Control Flow](assets/architecture.png)
 
 ---
 
