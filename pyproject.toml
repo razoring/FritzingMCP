@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fritzing-live-mcp"
+version = "0.1.0"
+description = "Live Fritzing Model Context Protocol (MCP) Server"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=2.3.0",
+    "pywin32>=312",
+    "pydantic>=2.0.0",
+    "pillow>=10.0.0",
+    "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+fritzing-mcp = "fritzing_mcp.server:main"
